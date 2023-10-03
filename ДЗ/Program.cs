@@ -27,7 +27,6 @@ class Prog
 
 //ЗАДАНИЕ 2-3
 
-//using System;
 class Prog
 {
     static void Main(string[] args)
