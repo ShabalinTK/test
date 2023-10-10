@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+
 // 2-10 задача 
 class HW
 {
