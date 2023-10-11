@@ -14,11 +14,9 @@ class Prog
             {
                 for (int z = 0; z <= m - 1; z++)
                 {
-                    Console.WriteLine($" способ {x},{y},{z}");
                     if ((Math.Pow(x, k) % m) == ((Math.Pow(y, k) % m) + (Math.Pow(z, k) % m)))
                     {
                         n++;
-                        Console.WriteLine($" сработал {x + "," + y + "," + z}");
                     }
                 }
             }
