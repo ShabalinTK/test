@@ -2,14 +2,17 @@
 
 int max = int.MinValue;
 int min = int.MaxValue;
-
-int[] mas = { 1, 5, 3, 32, 6, };
+var maxind = 0;
+var minind = 0;
+var sum = 0;
+int[] mas = { 1, 5, 3, 32, 6 };
 
 for (int i = 0; i < mas.Length; i++)
 {
     if (mas[i] > max)
     {
         max = mas[i];
+        maxind = i;
     }
 }
 
@@ -18,11 +21,16 @@ for (int i = 0; i < mas.Length; i++)
     if (mas[i] < min)
     {
         min = mas[i];
+        minind = i;
     }
 }
-Console.WriteLine(max);
-Console.WriteLine(min);
-Console.WriteLine(max + min);
+
+for (int i = minind+1; i < maxind; i++)
+{
+    sum += mas[i];
+}
+Console.WriteLine(sum);
+
 
 // 3 задача
 
