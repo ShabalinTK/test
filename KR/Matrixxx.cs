@@ -1,12 +1,12 @@
 ﻿using System.Text;
 
-namespace Matrix
+namespace MatrixClass
 {
     internal class Matrix
     {
         private int rows;
         private int columns;
-        private int[,] matrix;
+        private int[,] matr;
 
         public int Rows
         {
@@ -20,15 +20,15 @@ namespace Matrix
 
         public int this[int i, int j]
         {
-            get { return matrix[i, j]; }
-            private set { matrix[i, j] = value; }
+            get { return matr[i, j]; }
+            private set { matr[i, j] = value; }
         }
 
         public Matrix(int r, int c)
         {
             rows = r;
             columns = c;
-            matrix = new int[rows, columns];
+            matr = new int[rows, columns];
         }
 
         public override string ToString()
@@ -37,7 +37,7 @@ namespace Matrix
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < columns; j++)
-                    sb.Append($"{matrix[i, j],2}");
+                    sb.Append($"{matr[i, j],2}");
                 sb.AppendLine();
             }
             return sb.ToString();
@@ -50,7 +50,7 @@ namespace Matrix
 
             rows = Convert.ToInt32(sizes[0]);
             columns = Convert.ToInt32(sizes[1]);
-            this.matrix = new int[rows, columns];
+            this.matr = new int[rows, columns];
 
             var matrix = streamReader.ReadToEnd().Split('\n');
 
@@ -59,58 +59,55 @@ namespace Matrix
                 var r = matrix[i].Split(' ');
                 for (int j = 0; j < columns; j++)
                 {
-                    this.matrix[i, j] = Convert.ToInt32(r[j]);
+                    this.matr[i, j] = Convert.ToInt32(r[j]);
                 }
             }
         }
 
-        public void SwapRows(int a, int b)
+        public void SwapRows()
         {
-            for (int i = 0; i < columns; i++)
-            {
-                (matrix[a, i], matrix[b, i]) = (matrix[b, i], matrix[a, i]);
-            }
-        }
-
-        public void SwapRowsMaxMin()
-        {
-            var max = int.MinValue;
-            var maxindex = 0;
-            var min = int.MaxValue;
-            var minindex = 0;
+            int maxSum = int.MinValue;
+            int minSum = int.MaxValue;
+            int maxSumRow = 0;
+            int minSumRow = 0;
 
             for (int i = 0; i < rows; i++)
             {
-                int summa = 0;
+                int rowSum = 0;
                 for (int j = 0; j < columns; j++)
-                    summa += matrix[i, j];
-                if (summa > max)
                 {
-                    max = summa;
-                    maxindex = i;
+                    rowSum += matr[i, j];
                 }
-                if (summa < min)
+                if (rowSum > maxSum)
                 {
-                    min = summa;
-                    minindex = i;
+                    maxSum = rowSum;
+                    maxSumRow = i;
+                }
+                if (rowSum < minSum)
+                {
+                    minSum = rowSum;
+                    minSumRow = i;
                 }
             }
 
-            SwapRows(maxindex, minindex);
+            for (int j = 0; j < columns; j++)
+            {
+                int temp = matr[maxSumRow, j];
+                matr[maxSumRow, j] = matr[minSumRow, j];
+                matr[minSumRow, j] = temp;
+            }
         }
-    }
-
-    public class Program
-    {
-        static void Main()
+        public class Program
         {
-            var m1 = new Matrix("C:/Users/Admin/Desktop/test.txt");
-            Console.WriteLine(m1);
-
-            Console.WriteLine("************");
-
-            m1.SwapRowsMaxMin();
-            Console.WriteLine(m1);
+            static void Main()
+            {
+                var mr = new Matrix("C:/Users/shaba/OneDrive/Рабочий стол/test.txt");
+                Console.WriteLine(mr);
+                Console.WriteLine("************");
+                Console.WriteLine();
+                mr.SwapRows();
+                Console.WriteLine(mr);
+            }
         }
     }
 }
